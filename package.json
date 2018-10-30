@@ -1,0 +1,21 @@
+{
+  "name": "next-refiro",
+  "version": "0.1.0",
+  "description": "Next iteration of next-refiro",
+  "main": "dist/server/index.js",
+  "author": "Martiuh González",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.1.2",
+    "@babel/preset-env": "^7.1.0",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.4",
+    "cross-env": "^5.2.0",
+    "express": "^4.16.4",
+    "react": "^16.6.0",
+    "react-dom": "^16.6.0",
+    "rimraf": "^2.6.2",
+    "webpack": "^4.23.1",
+    "webpack-cli": "^3.1.2"
+  }
+}
