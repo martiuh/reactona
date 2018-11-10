@@ -47,11 +47,16 @@
     "regenerator-runtime": "^0.12.1"
   },
   "scripts": {
-    "clean": "rimraf dist",
-    "start": "yarn clean && babel-node ./server/server.js",
-    "build:server": "yarn clean && mkdir dist && babel server/index.js --out-dir dist/server",
-    "server": "yarn build:server -- --watch",
+    "clean": "yarn clean:client && yarn clean:server",
+    "clean:client": "rimraf _client",
+    "clean:server": "rimraf _server",
+    "build": "yarn build:client && yarn build:server && yarn build:node",
+    "build:client" : "yarn clean:client && cross-env NODE_ENV=production webpack --config webpack.client.js",
+    "build:server" : "yarn clean:server && cross-env NODE_ENV=production webpack --config webpack.server.js",
+    "build:node": "babel ./server/ --out-dir ./_server/ --ignore ./server/render.js ./server/serverStore.js",
     "serve": "cross-env NODE_ENV=production PORT=8081 node dist/server/index.js",
+    "server": "yarn clean && cross-env NODE_ENV=production PORT=8081 node server/server.js",
+    "start": "yarn clean && node ./server/server.js",
     "test": "jest"
   }
 }

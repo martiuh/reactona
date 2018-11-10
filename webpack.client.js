@@ -6,9 +6,9 @@ const HtmlPlugin = require('html-webpack-plugin')
 const webpackMerge = require('webpack-merge')
 
 const base = require('./webpack.base')
-
+const mode = process.env.NODE_ENV || 'development'
 const webpackConfig = {
-  mode: 'development',
+  mode,
   devtool: 'inline-source-map',
   name: 'client',
   context: __dirname,
@@ -19,6 +19,9 @@ const webpackConfig = {
   output: {
     path: path.resolve(__dirname, '_client'),
     publicPath: '/static/',
+  },
+  stats: {
+    all: true
   },
   plugins: [
     new HtmlPlugin({
@@ -32,7 +35,7 @@ const webpackConfig = {
     new webpack.DefinePlugin({
       IS_SERVER: JSON.stringify(false),
       'process.env': {
-        NODE_ENV: JSON.stringify('development')
+        NODE_ENV: JSON.stringify(mode)
       }
     })
   ]

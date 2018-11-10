@@ -1,14 +1,12 @@
-import 'colors'
-import express from 'express'
-import React from 'react'
-import path from 'path'
-import webpack from 'webpack'
-import webpackdevMiddleware from 'webpack-dev-middleware'
-import hotMiddleware from 'webpack-hot-middleware'
-import hotServerMiddleware from 'webpack-hot-server-middleware'
+require('colors')
+const express = require('express')
+const webpack = require('webpack')
+const webpackDevMiddleware = require('webpack-dev-middleware')
+const hotMiddleware = require('webpack-hot-middleware')
+const hotServerMiddleware = require('webpack-hot-server-middleware')
 
-import clientConfig from '../webpack.client'
-import serverConfig from '../webpack.server'
+const clientConfig = require('../webpack.client')
+const serverConfig = require('../webpack.server')
 
 const { publicPath } = clientConfig.output
 const outputPath = clientConfig.output.path
@@ -49,7 +47,15 @@ if (isDev) {
   devMiddleware.waitUntilValid(Start)
 }
 else {
-  const ServerRender = require('../_server/main').default
-  app.use(ServerRender())
-  Start()
+  webpack([clientConfig, serverConfig]).run((err, stats) => {
+    if (err) {
+      throw new Error(`Error en webpack:\n${err}`)
+    }
+    
+    const clientStats = stats.toJson().children[0]
+    const serverRender = require('../_server/main.js').default
+    app.use(publicPath, express.static(outputPath))
+    app.use(serverRender({ clientStats }))
+    Start()
+  })
 }

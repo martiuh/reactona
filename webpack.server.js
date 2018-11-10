@@ -6,8 +6,8 @@ const fs = require('fs')
 
 const base = require('./webpack.base')
 
-const externals = fs
-  .readdirSync(path.resolve(__dirname, 'node_modules'))
+const externals = (
+  fs.readdirSync(path.resolve(__dirname, 'node_modules'))
   .filter(
     x =>
       !/\.bin|react-universal-component|require-universal-module|webpack-flush-chunks/.test(
@@ -18,11 +18,12 @@ const externals = fs
     externals[mod] = `commonjs ${mod}`
     return externals
   }, {})
+)
 
 externals['react-dom/server'] = 'commonjs react-dom/server'
-
+const mode = process.env.NODE_ENV || 'development'
 const webpackConfig = {
-  mode: 'development',
+  mode,
   name: 'server',
   target: 'node',
   devtool: 'source-map',
@@ -41,7 +42,7 @@ const webpackConfig = {
     new webpack.DefinePlugin({
       IS_SERVER: JSON.stringify(true),
       'process.env': {
-        NODE_ENV: JSON.stringify('development')
+        NODE_ENV: JSON.stringify(mode)
       }
     })
   ]
