@@ -39,6 +39,7 @@ const webpackConfig = {
       maxChunks: 1
     }),
     new webpack.DefinePlugin({
+      IS_SERVER: JSON.stringify(true),
       'process.env': {
         NODE_ENV: JSON.stringify('development')
       }

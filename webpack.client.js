@@ -9,6 +9,7 @@ const base = require('./webpack.base')
 
 const webpackConfig = {
   mode: 'development',
+  devtool: 'inline-source-map',
   name: 'client',
   context: __dirname,
   entry: [
@@ -18,9 +19,6 @@ const webpackConfig = {
   output: {
     path: path.resolve(__dirname, '_client'),
     publicPath: '/static/',
-  },
-  stats: {
-    all: true
   },
   plugins: [
     new HtmlPlugin({
