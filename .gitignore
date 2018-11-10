@@ -1,1 +1,5 @@
 node_modules
+yarn-error.log
+dist
+_server
+_client
