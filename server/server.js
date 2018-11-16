@@ -29,7 +29,7 @@ const Start = () => {
 
 if (isDev) {
   const devCompiler = webpack([clientConfig, serverConfig])
-  const devMiddleware = webpackdevMiddleware(devCompiler, {
+  const devMiddleware = webpackDevMiddleware(devCompiler, {
     stats: {
       colors: true
     },

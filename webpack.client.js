@@ -4,24 +4,22 @@ const slash = require('slash')
 const WriteFilePlugin =  require('write-file-webpack-plugin')
 const HtmlPlugin = require('html-webpack-plugin')
 const webpackMerge = require('webpack-merge')
-
+const ExtractCssChunks = require('extract-css-chunks-webpack-plugin')
 const base = require('./webpack.base')
 const mode = process.env.NODE_ENV || 'development'
+const isDev = mode === 'development'
+
 const webpackConfig = {
   mode,
-  devtool: 'inline-source-map',
+  devtool: isDev ? 'inline-source-map' : 'source-map',
   name: 'client',
   context: __dirname,
   entry: [
       slash(path.join(__dirname, 'src')),
-      `webpack-hot-middleware/client?__webpack_hmr&reload=true&overlay=false`
   ],
   output: {
     path: path.resolve(__dirname, '_client'),
     publicPath: '/static/',
-  },
-  stats: {
-    all: true
   },
   plugins: [
     new HtmlPlugin({
@@ -41,4 +39,9 @@ const webpackConfig = {
   ]
 }
 
+  if (isDev) {
+    webpackConfig.entry.push(`webpack-hot-middleware/client?__webpack_hmr&reload=true&overlay=false`)
+  }
+
 module.exports = webpackMerge(base, webpackConfig);
+
