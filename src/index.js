@@ -22,7 +22,7 @@ const startApp = Application => (
     document.getElementById('__refiro__'))
 )
 
-if (module.hot) {
+if (module.hot && process.env.NODE_ENV === 'production') {
   module.hot.accept('./pages/App', () => {
     const NewApp = require('./pages/App').default
     startApp(NewApp)

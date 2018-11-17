@@ -47,15 +47,9 @@ if (isDev) {
   devMiddleware.waitUntilValid(Start)
 }
 else {
-  webpack([clientConfig, serverConfig]).run((err, stats) => {
-    if (err) {
-      throw new Error(`Error en webpack:\n${err}`)
-    }
-    
-    const clientStats = stats.toJson().children[0]
+    const clientStats = require('../_client/stats.json')
     const serverRender = require('../_server/main.js').default
     app.use(publicPath, express.static(outputPath))
     app.use(serverRender({ clientStats }))
     Start()
-  })
 }
