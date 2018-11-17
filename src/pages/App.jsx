@@ -4,9 +4,9 @@ import { connect } from 'react-redux'
 
 import Navbar from '../components/Navbar'
 
-const UniversalComponent = universal(props => import(`./${props.page}`), {
-  minDelay: 5000
-})
+const universalOptions = {}
+
+const UniversalComponent = universal(props => import(`./${props.page}`), universalOptions)
 
 const App = ({ page }) => (
   <Navbar>
@@ -15,6 +15,5 @@ const App = ({ page }) => (
 )
 
 const mapState = ({ page }) => ({ page })
-const mapDispatch = {}
 
-export default connect(mapState, mapDispatch)(App)
+export default connect(mapState)(App)

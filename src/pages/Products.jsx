@@ -1,11 +1,18 @@
 import React from 'react'
+import Helmet from 'react-helmet'
 
 import { productsTitle } from '../css/Products'
 
 export default function Products() {
   return (
-    <h1 className={productsTitle}>
-      Hello Productos!!!
-    </h1>
+    <main>
+      <Helmet title='Products.jsx' />  
+      <h1 className={productsTitle}>
+        Hello Productos!!!
+      </h1>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste rem illum quibusdam ea, consequatur omnis neque praesentium harum unde obcaecati asperiores ratione eligendi, libero aperiam reiciendis perferendis ut, amet quo?
+      </p>
+    </main>
   )
 }
