@@ -5,6 +5,9 @@ const WriteFilePlugin =  require('write-file-webpack-plugin')
 const HtmlPlugin = require('html-webpack-plugin')
 const webpackMerge = require('webpack-merge')
 const ExtractCssChunks = require('extract-css-chunks-webpack-plugin')
+const { InjectManifest } = require('workbox-webpack-plugin')
+const TerserPlugin = require('terser-webpack-plugin')
+
 const base = require('./webpack.base')
 const mode = process.env.NODE_ENV || 'development'
 const isDev = mode === 'development'
@@ -33,7 +36,7 @@ const webpackConfig = {
     new webpack.DefinePlugin({
       IS_SERVER: JSON.stringify(false),
       'process.env': {
-        NODE_ENV: JSON.stringify(mode)
+        NODE_ENV: JSON.stringify(mode || 'development')
       }
     })
   ]
@@ -41,6 +44,50 @@ const webpackConfig = {
 
   if (isDev) {
     webpackConfig.entry.push(`webpack-hot-middleware/client?__webpack_hmr&reload=true&overlay=false`)
+  }
+  else {
+    webpackConfig.plugins.push(new InjectManifest({
+      swDest: 'unstatic/serviceWorker.js', // It helps me get the worker in / instead of /static directory
+      swSrc: path.join(__dirname, 'src', 'serviceWorker.js'),
+      include: [
+        /vendor.*/,
+        /bootstrap.*/,
+        /main.*/,
+        /Home.*/,
+        /App.*/,
+        /logo\.*/,
+        /Offline.*/,
+        /\**\/*.ico/
+      ]
+    }))
+
+    webpackConfig.optimization = {
+      runtimeChunk: {
+        name: 'bootstrap'
+      },
+      splitChunks: {
+        chunks: 'initial',
+        cacheGroups: {
+          vendors: {
+            test: /[\\/]node_modules[\\/]/,
+            name: 'vendor'
+          }
+        }
+      },
+      minimizer: [
+        new TerserPlugin({
+          terserOptions: {
+            output: {
+              comments: false,
+              ascii_only: true
+            },
+            compress: {
+              comparisons: false
+            }
+          }
+        })
+      ]
+    }
   }
 
 module.exports = webpackMerge(base, webpackConfig);

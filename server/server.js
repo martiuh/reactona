@@ -1,6 +1,8 @@
 require('colors')
 const express = require('express')
+const path = require('path')
 const webpack = require('webpack')
+const compression = require('compression')
 const webpackDevMiddleware = require('webpack-dev-middleware')
 const hotMiddleware = require('webpack-hot-middleware')
 const hotServerMiddleware = require('webpack-hot-server-middleware')
@@ -20,7 +22,9 @@ let isDone = false
 const app = express()
 app.set('view engine', 'ejs')
 
+app.use(compression())
 app.use(clientConfig.output.publicPath, express.static(outputPath))
+app.use('/', express.static(path.resolve(__dirname, '../_client/unstatic')))
 
 const Start = () => {
   isDone = true

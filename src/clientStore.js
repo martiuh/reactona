@@ -3,8 +3,9 @@ import REDUX_THUNK from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension/logOnlyInProduction'
 import { connectRoutes } from 'redux-first-router'
 
-import routesMap from './routesMap'
-import * as reducers from './reducers'
+import { isProduction } from './utils'
+import routesMap from './routesMap';
+import * as reducers from './reducers';
 import * as actionCreators from './actions'
 
 const composeEnhancers = (...args) =>
@@ -41,5 +42,14 @@ export default function clientStore(serverState = {}, options = {}) {
   }
 
   const store = createStore(rootReducer, initialState, enhancers)
+
+    if (module.hot && !isProduction) {
+    module.hot.accept('./reducers/index', () => {
+      const reducers = require('./reducers/index') // eslint-disable-line global-require
+      const rootReducer = combineReducers({ ...reducers, location: reducer })
+      store.replaceReducer(rootReducer)
+    })
+  }
+
   return { store, thunk }
 }

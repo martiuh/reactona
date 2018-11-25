@@ -4,25 +4,34 @@ import { AppContainer } from 'react-hot-loader'
 import { Provider } from 'react-redux'
 import App from './pages/App'
 import clientStore from './clientStore'
+import { isProduction } from './utils'
 
-let serverState = {}
+let serverStore = {}
 if (!IS_SERVER) {
-  serverState = window.REDUX_STATE
+  serverStore = window.REDUX_STATE
   delete window.REDUX_STATE
+  if (isProduction) {
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/serviceWorker.js')
+      })
+    }    
+  }
 }
 
-const { store } = clientStore(serverState)
+const { store } = clientStore(serverStore)
+
 const startApp = Application => (
   hydrate(
     <AppContainer>
       <Provider store={store}>      
-       <Application />
+        <Application />
       </Provider>
     </AppContainer>,
     document.getElementById('__refiro__'))
 )
 
-if (module.hot && process.env.NODE_ENV === 'production') {
+if (module.hot && !isProduction) {
   module.hot.accept('./pages/App', () => {
     const NewApp = require('./pages/App').default
     startApp(NewApp)
