@@ -13,6 +13,12 @@ export default function Navbar({ children }) {
         <Link to='/products' className={navbarItem}>
           Products
         </Link>
+        <Link to='/about' className={navbarItem}>
+          About
+        </Link>
+        <Link to='/contact' className={navbarItem}>
+          Contact
+        </Link>
       </nav>
       {children}
     </React.Fragment>

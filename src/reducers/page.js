@@ -1,11 +1,11 @@
 import { NOT_FOUND } from 'redux-first-router'
+import { pageReducer } from '../routesMap'
 
 export default function page(state = 'HOME', action = {}) {
   const { type, payload } = action
 
   const components = {
-    'HOME': 'Home',
-    'PRODUCTS': 'Products',
+    ...pageReducer,
     [NOT_FOUND]: 'NotFound'
   }
 
