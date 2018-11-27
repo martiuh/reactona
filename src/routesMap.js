@@ -16,12 +16,6 @@ const mainRoutes = {
     route: {
       path: '/about'
     }
-  },
-  CONTACT: {
-    fileName: 'Contact',
-    route: {
-      path: '/contact'
-    }
   }
 }
 

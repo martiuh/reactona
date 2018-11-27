@@ -28,7 +28,7 @@ const startApp = Application => (
         <Application />
       </Provider>
     </AppContainer>,
-    document.getElementById('__refiro__'))
+    document.getElementById('app'))
 )
 
 if (module.hot && !isProduction) {
