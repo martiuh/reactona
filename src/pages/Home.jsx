@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <main>
       <Helmet title='Home.jsx' />
-      <h1>Home.js ohh YEAH!!! ma, haouse</h1>
+      <h1>Home.js ohh YEAH baybe!!!</h1>
     </main>
   )
 }

@@ -14,7 +14,7 @@ const isDev = mode === 'development'
 
 const webpackConfig = {
   mode,
-  devtool: isDev ? 'inline-source-map' : 'source-map',
+  devtool: isDev ? 'eval' : 'source-map',
   name: 'client',
   context: __dirname,
   entry: [
@@ -23,6 +23,24 @@ const webpackConfig = {
   output: {
     path: path.resolve(__dirname, '_client'),
     publicPath: '/static/',
+  },
+  module: {
+    rules: [
+      {
+        test: /\.(css|scss|sass)$/,
+        use: [ 
+            ExtractCssChunks.loader,
+            {
+              loader: 'css-loader',
+              options: {
+                modules: true,
+                localIdentName: '[name]__[local]--[hash:base64:5]'
+              }
+            },
+            'sass-loader'
+        ]
+      }
+    ]
   },
   plugins: [
     new HtmlPlugin({
@@ -38,12 +56,19 @@ const webpackConfig = {
       'process.env': {
         NODE_ENV: JSON.stringify(mode || 'development')
       }
-    })
+    }),
+    new ExtractCssChunks({
+      filename: `[name]${isDev ? '' : '-[chunkhash]'}.css`,
+      chunkFilename: '[id].css',
+      hot: true,
+      reloadAll: true,
+      cssModules: true
+    }),
   ]
 }
 
   if (isDev) {
-    webpackConfig.entry.push(`webpack-hot-middleware/client?__webpack_hmr&reload=true&overlay=false`)
+    webpackConfig.entry.push(`webpack-hot-middleware/client?__webpack_hmr&reload=true&overlay=true`)
   }
   else {
     webpackConfig.plugins.push(new InjectManifest({
@@ -69,6 +94,7 @@ const webpackConfig = {
         chunks: 'initial',
         cacheGroups: {
           vendors: {
+            chunks: 'all',
             test: /[\\/]node_modules[\\/]/,
             name: 'vendor'
           }
@@ -90,5 +116,5 @@ const webpackConfig = {
     }
   }
 
-module.exports = webpackMerge(base, webpackConfig);
+module.exports = webpackMerge.smart(base, webpackConfig);
 

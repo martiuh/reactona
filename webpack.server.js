@@ -22,7 +22,7 @@ const externals = (
 
 externals['react-dom/server'] = 'commonjs react-dom/server'
 const mode = process.env.NODE_ENV || 'development'
-const webpackConfig = {
+const webpackServer = {
   mode,
   name: 'server',
   target: 'node',
@@ -32,6 +32,24 @@ const webpackConfig = {
     path: path.join(__dirname, '_server'),
     filename: '[name].js',
     libraryTarget: 'commonjs2'
+  },
+  module: {
+    rules: [
+      {
+        test: /\.(css|scss|sass)$/,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: 'css-loader/locals',
+            options: {
+              modules: true,
+              localIdentName: '[name]__[local]--[hash:base64:5]'
+            }
+          },
+          'sass-loader'
+        ]
+      }
+    ]
   },
   externals,
   plugins: [
@@ -48,4 +66,4 @@ const webpackConfig = {
   ]
 }
 
-module.exports = webpackMerge(base, webpackConfig);
+module.exports = webpackMerge.smart(base, webpackServer);
