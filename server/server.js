@@ -22,7 +22,9 @@ let isDone = false
 const app = express()
 app.set('view engine', 'ejs')
 
-app.use(compression())
+if (!isDev) {
+  app.use(compression())
+}
 app.use(clientConfig.output.publicPath, express.static(outputPath))
 app.use('/', express.static(path.resolve(__dirname, '../_client/unstatic')))
 

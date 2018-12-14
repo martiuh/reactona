@@ -24,6 +24,7 @@
     "extract-css-chunks-webpack-plugin": "^3.2.1",
     "html-webpack-plugin": "^3.2.0",
     "jest": "^23.6.0",
+    "mkdirp": "^0.5.1",
     "node-sass": "^4.10.0",
     "raw-loader": "^0.5.1",
     "redux-devtools-extension": "^2.13.5",
@@ -63,7 +64,7 @@
   },
   "scripts": {
     "clean": "yarn clean:client && yarn clean:server",
-    "clean:client": "rimraf _client && mkdir _client",
+    "clean:client": "rimraf _client && mkdirp _client",
     "clean:server": "rimraf _server",
     "build": "yarn build:client && yarn build:server",
     "build:client": "yarn clean:client && cross-env NODE_ENV=production webpack --config webpack.client.js --profile --json > ./_client/stats.json",

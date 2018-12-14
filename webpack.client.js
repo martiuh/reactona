@@ -32,7 +32,8 @@ const webpackConfig = {
   ],
   output: {
     path: path.resolve(__dirname, '_client'),
-    publicPath: isDev ? '/' : '/static/',
+    publicPath: '/static/',
+    filename: `[name]${isDev ? '' : '.[hash]'}.js`
   },
   module: {
     rules: [
@@ -68,8 +69,8 @@ const webpackConfig = {
       }
     }),
     new ExtractCssChunks({
-      filename: `[name]${isDev ? '' : '-[chunkhash]'}.css`,
-      chunkFilename: '[id].css',
+      filename: `[name]${isDev ? '' : '.[hash]'}.css`,
+      chunkFilename: '[name].[chunkhash].css',
       hot: true,
       reloadAll: true,
       cssModules: true
@@ -84,8 +85,8 @@ const webpackConfig = {
   }
   else {
     webpackConfig.plugins.push(new InjectManifest({
-      swDest: 'unstatic/serviceWorker.js', // It helps me get the worker in / instead of /static directory
-      swSrc: path.join(__dirname, 'src', 'serviceWorker.js'),
+      swDest: 'unstatic/service-worker.js', // It helps me get the worker in / instead of /static directory
+      swSrc: path.join(__dirname, 'src', 'service-worker.js'),
       include: [
         /vendor.*/,
         /bootstrap.*/,

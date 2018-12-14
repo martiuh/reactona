@@ -13,7 +13,7 @@ if (!IS_SERVER) {
   if (isProduction) {
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/serviceWorker.js')
+        navigator.serviceWorker.register('/service-worker.js')
       })
     }    
   }
