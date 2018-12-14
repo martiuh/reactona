@@ -44,7 +44,7 @@ if (isDev) {
   app.use(hotMiddleware(cilentCompiler, {
     log: false,
     path: '/__webpack_hmr',
-    heartbeat: 10 * 1000,
+    heartbeat: 2000,
   }))
   
   app.use(hotServerMiddleware(devCompiler))

@@ -11,6 +11,15 @@ const TerserPlugin = require('terser-webpack-plugin')
 const base = require('./webpack.base')
 const mode = process.env.NODE_ENV || 'development'
 const isDev = mode === 'development'
+let devEntry = []
+
+if (isDev) {
+  devEntry = [
+    'react-hot-loader/patch',
+    'webpack/hot/only-dev-server',
+    `webpack-hot-middleware/client?__webpack_hmr&reload=true&overlay=true`
+  ]
+}
 
 const webpackConfig = {
   mode,
@@ -18,11 +27,12 @@ const webpackConfig = {
   name: 'client',
   context: __dirname,
   entry: [
-      slash(path.join(__dirname, 'src')),
+    ...devEntry,
+    slash(path.join(__dirname, 'src')),
   ],
   output: {
     path: path.resolve(__dirname, '_client'),
-    publicPath: '/static/',
+    publicPath: isDev ? '/' : '/static/',
   },
   module: {
     rules: [
@@ -68,7 +78,9 @@ const webpackConfig = {
 }
 
   if (isDev) {
-    webpackConfig.entry.push(`webpack-hot-middleware/client?__webpack_hmr&reload=true&overlay=true`)
+    webpackConfig.performance = {
+      hints: false
+    }
   }
   else {
     webpackConfig.plugins.push(new InjectManifest({

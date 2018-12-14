@@ -8,7 +8,10 @@ const baseConfig = {
       ]
     },
   resolve: {
-    extensions: ['.js', '.jsx', '.css', '.scss', '.sass']
+    extensions: ['.js', '.jsx', '.css', '.scss', '.sass'],
+    alias: {
+      'react-dom': '@hot-loader/react-dom'
+    }
   }
 }
 
