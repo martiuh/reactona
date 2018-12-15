@@ -1,6 +1,6 @@
 {
   "name": "reactona",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "Universal React App",
   "main": "./server/server.js",
   "author": "Martiuh González",
@@ -80,8 +80,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn lint && yarn test",
-      "pre-push": "yarn cz"
+      "pre-commit": "yarn lint && yarn test"
     }
   }
 }
