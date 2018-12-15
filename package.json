@@ -76,11 +76,12 @@
     "start": "yarn clean && cross-env NODE_ENV=development node ./server/server.js",
     "test": "jest",
     "lint": "eslint --quiet server src",
-    "cz": "npx git-cz"
+    "cz": "npx git-cz",
+    "pre-cz": "yarn lint && yarn test"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn lint && yarn test"
+      "pre-commit": "yarn pre-cz"
     }
   }
 }
