@@ -2,7 +2,7 @@ import React from 'react'
 import universal from 'react-universal-component'
 import { connect } from 'react-redux'
 
-import '../css/normalize.css'
+import '../css/normalize'
 import Navbar from '../components/Navbar'
 
 const universalOptions = {}

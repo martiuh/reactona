@@ -2,21 +2,18 @@ module.exports = {
   parser: 'babel-eslint',
   parserOptions: {
     ecmaFeatures: {
+      legacyDecorators: true,
       generators: true,
       experimentalObjectRestSpread: true
     },
     sourceType: 'module',
     allowImportExportEverywhere: false
   },
-  plugins: ['flowtype'],
-  extends: ['airbnb', 'plugin:flowtype/recommended'],
+  extends: ['plugin:react/recommended', 'airbnb'],
   settings: {
-    flowtype: {
-      onlyFilesWithFlowAnnotation: true
-    },
     'import/resolver': {
       node: {
-        extensions: ['.js', '.json', '.css', '.scss', '.sass']
+        extensions: ['.js', '.jsx', '.json', '.css', '.scss', '.sass']
       }
     }
   },
@@ -49,8 +46,9 @@ module.exports = {
       {
         js: 'never',
         jsx: 'never',
-        styl: 'never',
-        css: 'never'
+        scss: 'never',
+        css: 'never',
+        sass: 'never'
       }
     ],
     'jsx-a11y/anchor-is-valid': [
@@ -87,14 +85,12 @@ module.exports = {
     'dot-notation': 1,
     'import/no-named-default': 1,
     'no-unused-vars': 1,
-    'flowtype/no-weak-types': 1,
     'consistent-return': 1,
     'import/prefer-default-export': 1,
     'no-console': 1,
     'jsx-a11y/no-static-element-interactions': 1,
     'no-case-declarations': 1,
     semi: [2, 'never'],
-    'flowtype/semi': [2, 'never'],
     'jsx-quotes': [2, 'prefer-single'],
     'react/jsx-filename-extension': [2, { extensions: ['.jsx', '.js'] }],
     'spaced-comment': [2, 'always', { markers: ['?'] }],
