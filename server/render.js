@@ -1,3 +1,4 @@
+import 'babel-polyfill'
 import React from 'react'
 import { renderToString } from 'react-dom/server'
 import { flushChunkNames } from 'react-universal-component/server'
