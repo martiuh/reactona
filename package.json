@@ -77,11 +77,11 @@
     "test": "jest",
     "lint": "eslint --quiet server src",
     "cz": "npx git-cz",
-    "pre-cz": "yarn lint && yarn test"
+    "test:all": "yarn lint && yarn test"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn pre-cz"
+      "pre-push": "yarn test:all"
     }
   }
 }
