@@ -19,10 +19,8 @@
     "babel-jest": "^23.6.0",
     "babel-loader": "^8.0.4",
     "babel-plugin-universal-import": "^3.1.2",
-    "commitizen": "^3.0.5",
     "cross-env": "^5.2.0",
     "css-loader": "^1.0.1",
-    "cz-conventional-changelog": "^2.1.0",
     "eslint": "^5.9.0",
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-react": "^7.11.1",
@@ -78,12 +76,7 @@
     "start": "yarn clean && cross-env NODE_ENV=development node ./server/server.js",
     "test": "jest",
     "lint": "eslint --quiet server src",
-    "cz": "git-cz"
-  },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
-    }
+    "cz": "npx git-cz"
   },
   "husky": {
     "hooks": {
