@@ -17,7 +17,7 @@ if (isDev) {
   devEntry = [
     'react-hot-loader/patch',
     'webpack/hot/only-dev-server',
-    `webpack-hot-middleware/client?__webpack_hmr&reload=true&overlay=true`
+    'webpack-hot-middleware/client?__webpack_hmr&reload=true&overlay=true'
   ]
 }
 

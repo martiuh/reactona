@@ -1,8 +1,11 @@
+import { HomeThunk } from './routeThunks'
+
 const mainRoutes = {
   HOME: {
     fileName: 'Home',
     route: {
-      path: '/'
+      path: '/',
+      thunk: HomeThunk
     }
   },
   PRODUCTS: {

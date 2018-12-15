@@ -27,7 +27,7 @@ const webpackServer = {
   name: 'server',
   target: 'node',
   devtool: 'source-map',
-  entry: ['regenerator-runtime/runtime.js', path.join(__dirname, 'server', 'render')],
+  entry: [path.join(__dirname, 'server', 'render')],
   output: {
     path: path.join(__dirname, '_server'),
     filename: '[name].js',
