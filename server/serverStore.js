@@ -1,4 +1,3 @@
-import createMemoryHistory from 'history/createMemoryHistory'
 import { NOT_FOUND } from 'redux-first-router'
 
 import clientStore from '../src/clientStore'
@@ -14,7 +13,7 @@ export default async function serverStore(req, res) {
   let { location } = store.getState()
 
   await thunk(store)
-
+  // eslint-disable-next-line prefer-destructuring
   location = store.getState().location
 
   const status = location.type === NOT_FOUND ? 404 : 200

@@ -15,7 +15,7 @@ if (!IS_SERVER) {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('/service-worker.js')
       })
-    }    
+    }
   }
 }
 
@@ -24,11 +24,12 @@ const { store } = clientStore(serverStore)
 const startApp = Application => (
   hydrate(
     <AppContainer>
-      <Provider store={store}>      
+      <Provider store={store}>
         <Application />
       </Provider>
     </AppContainer>,
-    document.getElementById('app'))
+    document.getElementById('app')
+  )
 )
 
 if (module.hot && !isProduction) {

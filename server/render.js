@@ -9,7 +9,7 @@ import App from '../src/pages/App'
 import serverStore from './serverStore'
 
 export default function render({ clientStats }) {
-  return async function(req, res) {
+  return async function realRender(req, res) {
     const store = await serverStore(req, res)
     const appString = ssrApp(store)
     const helmet = Helmet.renderStatic()
