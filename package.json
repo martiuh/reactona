@@ -80,15 +80,15 @@
     "lint": "eslint --quiet server src",
     "cz": "git-cz"
   },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
   "husky": {
     "hooks": {
       "pre-commit": "yarn lint && yarn test",
       "pre-push": "yarn cz"
-    }
-  },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
     }
   }
 }
