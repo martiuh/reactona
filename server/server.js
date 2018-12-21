@@ -10,6 +10,7 @@ const report = require('yurnalist')
 
 const clientConfig = require('../webpack.client')
 const serverConfig = require('../webpack.server')
+
 const { publicPath } = clientConfig.output
 const outputPath = clientConfig.output.path
 const { NODE_ENV } = process.env
@@ -19,7 +20,10 @@ PORT = process.env.PORT || PORT
 
 const app = express()
 app.set('view engine', 'ejs')
+/* eslint-disable global-require */
 app.use('/api', (req, res, next) => require('./api')(req, res, next))
+/* eslint-enable global-require */
+
 // Production only
 if (!isDev) {
   app.use(compression())
@@ -38,7 +42,7 @@ if (isDev) {
     watcher.on('all', () => {
       report.info('removing module cache')
       Object.keys(require.cache).forEach(id => {
-        if (/[\/\\]server[\/\\]/.test(id)) delete require.cache[id]
+        if (/\/\\server\/\\/.test(id)) delete require.cache[id]
       })
     })
   })

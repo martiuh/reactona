@@ -80,7 +80,7 @@
     "serve": "cross-env NODE_ENV=production PORT=8081 node ./server/server.js",
     "start": "yarn clean && cross-env NODE_ENV=development nodemon ./server/server.js",
     "test": "jest",
-    "lint": "eslint --quiet server src",
+    "lint": "eslint --quiet server src server-renderer",
     "cz": "npx git-cz && git push",
     "test:all": "yarn lint && yarn test"
   },
