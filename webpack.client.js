@@ -39,7 +39,7 @@ const webpackConfig = {
     rules: [
       {
         test: /\.(css|scss|sass)$/,
-        use: [ 
+        use: [
             ExtractCssChunks.loader,
             {
               loader: 'css-loader',
@@ -55,7 +55,7 @@ const webpackConfig = {
   },
   plugins: [
     new HtmlPlugin({
-      template: `!!raw-loader!${path.join(__dirname, 'server/template.ejs')}`,
+      template: `!!raw-loader!${path.join(__dirname, 'server-renderer/template.ejs')}`,
       filename: 'render.ejs',
       chunks: []
     }),
@@ -130,4 +130,3 @@ const webpackConfig = {
   }
 
 module.exports = webpackMerge.smart(base, webpackConfig);
-

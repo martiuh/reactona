@@ -27,7 +27,7 @@ const webpackServer = {
   name: 'server',
   target: 'node',
   devtool: 'source-map',
-  entry: [path.join(__dirname, 'server', 'render')],
+  entry: [path.join(__dirname, 'server-renderer')],
   output: {
     path: path.join(__dirname, '_server'),
     filename: '[name].js',

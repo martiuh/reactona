@@ -1,5 +1,5 @@
 {
-  "igrnore": [
-    "./src/**"
+  "watch": [
+    "server/server.js"
   ]
 }

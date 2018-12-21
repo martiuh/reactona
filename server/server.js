@@ -1,4 +1,3 @@
-require('colors')
 const express = require('express')
 const path = require('path')
 const webpack = require('webpack')
@@ -6,10 +5,11 @@ const compression = require('compression')
 const webpackDevMiddleware = require('webpack-dev-middleware')
 const hotMiddleware = require('webpack-hot-middleware')
 const hotServerMiddleware = require('webpack-hot-server-middleware')
+const chokidar = require('chokidar')
+const report = require('yurnalist')
 
 const clientConfig = require('../webpack.client')
 const serverConfig = require('../webpack.server')
-
 const { publicPath } = clientConfig.output
 const outputPath = clientConfig.output.path
 const { NODE_ENV } = process.env
@@ -19,7 +19,8 @@ PORT = process.env.PORT || PORT
 
 const app = express()
 app.set('view engine', 'ejs')
-
+app.use('/api', (req, res, next) => require('./api')(req, res, next))
+// Production only
 if (!isDev) {
   app.use(compression())
 }
@@ -27,10 +28,21 @@ app.use(clientConfig.output.publicPath, express.static(outputPath))
 app.use('/', express.static(path.resolve(__dirname, '../_client/unstatic')))
 
 const Start = () => {
-  app.listen(PORT, () => console.log(`App lista en ${PORT}`.magenta))
+  app.listen(PORT, () => report.success(`universal app running on localhost:${PORT}`))
 }
 
+// Development only
 if (isDev) {
+  const watcher = chokidar.watch('./server')
+  watcher.on('ready', () => {
+    watcher.on('all', () => {
+      report.info('removing module cache')
+      Object.keys(require.cache).forEach(id => {
+        if (/[\/\\]server[\/\\]/.test(id)) delete require.cache[id]
+      })
+    })
+  })
+
   const devCompiler = webpack([clientConfig, serverConfig])
   const devMiddleware = webpackDevMiddleware(devCompiler, {
     stats: {

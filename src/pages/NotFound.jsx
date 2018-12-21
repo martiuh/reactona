@@ -6,7 +6,7 @@ export default function NotFound() {
     <main>
       <Helmet title='No encontrado' />
       <h1>
-        404 BIATCH!!!
+        404 Keep looking!!!!
       </h1>
     </main>
   )

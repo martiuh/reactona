@@ -8,10 +8,10 @@ import Helmet from 'react-helmet'
 import App from '../src/pages/App'
 import serverStore from './serverStore'
 
-export default function render({ clientStats }) {
-  return async function realRender(req, res) {
+export default function webpackRender({ clientStats }) {
+  return async function render(req, res) {
     const store = await serverStore(req, res)
-    const appString = ssrApp(store)
+    const appString = htmlApp(store)
     const helmet = Helmet.renderStatic()
     const chunkNames = flushChunkNames()
     const { js, styles, cssHash } = flushChunks(clientStats, {
@@ -38,7 +38,7 @@ export default function render({ clientStats }) {
   }
 }
 
-const ssrApp = store => renderToString(
+const htmlApp = store => renderToString(
   <Provider store={store}>
     <App />
   </Provider>
