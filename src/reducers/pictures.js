@@ -1,9 +1,9 @@
-import a from '../actions'
+import { FETCH_PICS } from '../actions'
 
-export default function catalog(state = [], action = {}) {
+export default function pictures(state = [], action = {}) {
   const { type, payload } = action
   switch (type) {
-    case a.ADD_PRODUCT:
+    case FETCH_PICS:
       return [...state, payload]
     default:
       return state
