@@ -84,11 +84,11 @@
     "test": "jest",
     "lint": "eslint --quiet server src server-renderer",
     "cz": "npx git-cz && git push",
-    "pre:push": "yarn lint && yarn test"
+    "pre:commit": "yarn lint && yarn test"
   },
   "husky": {
     "hooks": {
-      "pre-push": "yarn pre:push"
+      "pre-commit": "yarn pre:commit"
     }
   }
 }
