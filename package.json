@@ -58,6 +58,7 @@
     "eslint-config-airbnb": "^17.1.0",
     "eslint-plugin-jsx-a11y": "^6.1.2",
     "express": "^4.16.4",
+    "express-no-favicons": "^0.0.1",
     "react": "^16.6.1",
     "react-dom": "^16.6.1",
     "react-helmet": "^5.2.0",

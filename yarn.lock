@@ -2661,6 +2661,11 @@ expect@^23.6.0:
     jest-message-util "^23.4.0"
     jest-regex-util "^23.3.0"
 
+express-no-favicons@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/express-no-favicons/-/express-no-favicons-0.0.1.tgz#21d700ab228650e58fe212710a45b03c7ccf3456"
+  integrity sha1-IdcAqyKGUOWP4hJxCkWwPHzPNFY=
+
 express@^4.16.4:
   version "4.16.4"
   resolved "https://registry.yarnpkg.com/express/-/express-4.16.4.tgz#fddef61926109e24c515ea97fd2f1bdbf62df12e"

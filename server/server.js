@@ -1,5 +1,6 @@
 const express = require('express')
 const path = require('path')
+const noFavicon = require('express-no-favicons')
 const webpack = require('webpack')
 const compression = require('compression')
 const webpackDevMiddleware = require('webpack-dev-middleware')
@@ -19,6 +20,7 @@ let PORT = isDev ? 3030 : 8080
 PORT = process.env.PORT || PORT
 
 const app = express()
+app.use(noFavicon())
 app.set('view engine', 'ejs')
 /* eslint-disable global-require */
 app.use('/api', (req, res, next) => require('./api')(req, res, next))
