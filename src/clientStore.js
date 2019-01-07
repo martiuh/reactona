@@ -36,11 +36,7 @@ export default function clientStore(serverState = {}, options = {}) {
   )
 
   const initialState = {
-    ...serverState,
-    catalog: [{
-      name: 'Playera Gon',
-      sku: 'aflkjasdf09u'
-    }]
+    ...serverState
   }
 
   const store = createStore(rootReducer, initialState, enhancers)

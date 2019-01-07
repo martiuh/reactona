@@ -4,6 +4,7 @@ import { flushChunkNames } from 'react-universal-component/server'
 import flushChunks from 'webpack-flush-chunks'
 import { Provider } from 'react-redux'
 import Helmet from 'react-helmet'
+import serialize from 'serialize-javascript'
 
 import App from '../src/pages/App'
 import serverStore from './serverStore'
@@ -22,7 +23,7 @@ export default function webpackRender({ clientStats }) {
       title, meta, link, htmlAttributes, bodyAttributes
     } = helmet
 
-    const reduxState = JSON.stringify(store.getState())
+    const reduxState = serialize(store.getState(), { isJSON: true })
     res.render('../_client/render.ejs', {
       title,
       meta,

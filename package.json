@@ -27,6 +27,7 @@
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-react": "^7.11.1",
     "extract-css-chunks-webpack-plugin": "^3.2.1",
+    "git-cz": "^1.8.0",
     "html-webpack-plugin": "^3.2.0",
     "husky": "^1.2.1",
     "jest": "^23.6.0",
@@ -70,6 +71,7 @@
     "redux-first-router-link": "^1.4.2",
     "redux-thunk": "^2.3.0",
     "regenerator-runtime": "^0.13.1",
+    "serialize-javascript": "^1.6.1",
     "yurnalist": "^1.0.3"
   },
   "scripts": {
@@ -84,7 +86,7 @@
     "start": "yarn clean && cross-env NODE_ENV=development nodemon ./server/server.js",
     "test": "jest",
     "lint": "eslint --quiet server src server-renderer",
-    "cz": "npx git-cz && git push",
+    "cm": "git-cz && git push",
     "pre:commit": "yarn lint && yarn test"
   },
   "husky": {
