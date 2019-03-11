@@ -1,1 +1,1 @@
-export * from './picturesActions'
+export * from './picturesActions';
