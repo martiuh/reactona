@@ -28,9 +28,7 @@ watcher.on('ready', () => {
 
 const devCompiler = webpack([clientConfig, serverConfig]);
 const devMiddleware = webpackDevMiddleware(devCompiler, {
-  stats: {
-    colors: true
-  },
+  logLevel: 'silent',
   publicPath
 });
 
@@ -38,7 +36,6 @@ app.use(devMiddleware);
 const cilentCompiler = devCompiler.compilers[0];
 app.use(
   hotMiddleware(cilentCompiler, {
-    log: false,
     path: '/__webpack_hmr',
     heartbeat: 2000
   })

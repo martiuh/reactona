@@ -7,16 +7,10 @@ const webpackMerge = require('webpack-merge');
 const ExtractCssChunks = require('extract-css-chunks-webpack-plugin');
 const { InjectManifest } = require('workbox-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
-<<<<<<< HEAD
+const { StatsWriterPlugin } = require('webpack-stats-plugin');
 
 const siteConfig = require('./site-config');
 const base = require('./webpack.base');
-=======
-const { StatsWriterPlugin } = require('webpack-stats-plugin');
-
-const base = require('./webpack.base');
-
->>>>>>> 720aed38b3061ab7363f4486edcbe56d2bea9d6c
 const mode = process.env.NODE_ENV || 'development';
 const isDev = mode === 'development';
 let devEntry = [];
@@ -44,18 +38,7 @@ const webpackConfig = {
       {
         test: /\.(css|scss|sass)$/,
         use: [
-<<<<<<< HEAD
           ExtractCssChunks.loader,
-=======
-          {
-            loader: ExtractCssChunks.loader,
-            options: {
-              hot: true,
-              reloadAll: true,
-              modules: true
-            }
-          },
->>>>>>> 720aed38b3061ab7363f4486edcbe56d2bea9d6c
           {
             loader: 'css-loader',
             options: {
@@ -78,7 +61,15 @@ const webpackConfig = {
       chunks: []
     }),
     new WriteFilePlugin(),
-    new StatsWriterPlugin(),
+    new StatsWriterPlugin({
+      fields: [
+        'assetsByChunkName',
+        'namedChunkGroups',
+        'chunks',
+        'modules',
+        'publicPath'
+      ]
+    }),
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.NamedModulesPlugin(),
     new webpack.HotModuleReplacementPlugin(),
@@ -91,7 +82,6 @@ const webpackConfig = {
       'process.env': {
         NODE_ENV: JSON.stringify(mode || 'development')
       }
-<<<<<<< HEAD
     }),
     new ExtractCssChunks({
       filename: `[name]${isDev ? '' : '.[hash]'}.css`,
@@ -99,20 +89,14 @@ const webpackConfig = {
       hot: true,
       reloadAll: true,
       cssModules: true
-=======
->>>>>>> 720aed38b3061ab7363f4486edcbe56d2bea9d6c
     })
   ]
 };
 
 if (isDev) {
-<<<<<<< HEAD
   webpackConfig.performance = {
     hints: false
   };
-=======
-  // Do something
->>>>>>> 720aed38b3061ab7363f4486edcbe56d2bea9d6c
 } else {
   webpackConfig.plugins.push(
     new InjectManifest({

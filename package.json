@@ -72,7 +72,7 @@
     "regenerator-runtime": "^0.13.1",
     "serialize-javascript": "^1.6.1",
     "slash": "^2.0.0",
-    "yurnalist": "^1.0.3"
+    "yurnalist": "^1.0.5"
   },
   "scripts": {
     "clean": "yarn clean:client && yarn clean:server",

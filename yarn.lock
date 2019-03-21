@@ -2644,11 +2644,6 @@ expect@^23.6.0:
     jest-message-util "^23.4.0"
     jest-regex-util "^23.3.0"
 
-express-no-favicons@^0.0.1:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/express-no-favicons/-/express-no-favicons-0.0.1.tgz#21d700ab228650e58fe212710a45b03c7ccf3456"
-  integrity sha1-IdcAqyKGUOWP4hJxCkWwPHzPNFY=
-
 express@^4.16.4:
   version "4.16.4"
   resolved "https://registry.yarnpkg.com/express/-/express-4.16.4.tgz#fddef61926109e24c515ea97fd2f1bdbf62df12e"
@@ -3711,14 +3706,6 @@ is-path-inside@^1.0.0:
   resolved "https://registry.yarnpkg.com/is-path-inside/-/is-path-inside-1.0.1.tgz#8ef5b7de50437a3fdca6b4e865ef7aa55cb48036"
   dependencies:
     path-is-inside "^1.0.1"
-
-<<<<<<< HEAD
-is-plain-obj@^1.0.0:
-=======
-is-plain-obj@^1.1.0:
->>>>>>> 720aed38b3061ab7363f4486edcbe56d2bea9d6c
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/is-plain-obj/-/is-plain-obj-1.1.0.tgz#71a50c8429dfca773c92a390a4a03b39fcd51d3e"
 
 is-plain-object@^2.0.1, is-plain-object@^2.0.3, is-plain-object@^2.0.4:
   version "2.0.4"
@@ -6196,16 +6183,6 @@ sax@^1.2.4:
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/sax/-/sax-1.2.4.tgz#2816234e2378bddc4e5354fab5caa895df7100d9"
 
-<<<<<<< HEAD
-=======
-scheduler@^0.12.0-alpha.2:
-  version "0.12.0-alpha.3"
-  resolved "https://registry.yarnpkg.com/scheduler/-/scheduler-0.12.0-alpha.3.tgz#59afcaba1cb79e3e8bee91de94eb8f42c9152c2b"
-  dependencies:
-    loose-envify "^1.1.0"
-    object-assign "^4.1.1"
-
->>>>>>> 720aed38b3061ab7363f4486edcbe56d2bea9d6c
 scheduler@^0.13.4:
   version "0.13.4"
   resolved "https://registry.yarnpkg.com/scheduler/-/scheduler-0.13.4.tgz#8fef05e7a3580c76c0364d2df5e550e4c9140298"

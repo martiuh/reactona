@@ -12,8 +12,8 @@ const baseConfig = {
   },
   resolve: {
     extensions: ['.js', '.jsx', '.css', '.scss', '.sass']
-  }
-  // plugins: [new FriendlyErrors()]
+  },
+  plugins: [new FriendlyErrors()]
 };
 
 module.exports = baseConfig;
