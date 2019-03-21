@@ -1,4 +1,4 @@
-import { HomeThunk } from './routeThunks'
+import { HomeThunk } from './routeThunks';
 
 const mainRoutes = {
   HOME: {
@@ -20,15 +20,15 @@ const mainRoutes = {
       path: '/about'
     }
   }
-}
+};
 
-const routesKeys = Object.keys(mainRoutes)
-const routesValues = Object.values(mainRoutes)
-export const pageReducer = {}
-const routesMap = {}
+const routesKeys = Object.keys(mainRoutes);
+const routesValues = Object.values(mainRoutes);
+export const pageReducer = {};
+const routesMap = {};
 routesKeys.forEach((route, index) => {
-  routesMap[route] = routesValues[index].route
-  pageReducer[route] = routesValues[index].fileName
-})
+  routesMap[route] = routesValues[index].route;
+  pageReducer[route] = routesValues[index].fileName;
+});
 
-export default routesMap
+export default routesMap;

@@ -1,1 +1,1 @@
-export { default as HomeThunk } from './HomeThunk'
+export { default as HomeThunk } from './HomeThunk';

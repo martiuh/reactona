@@ -7,16 +7,22 @@ const webpackMerge = require('webpack-merge');
 const ExtractCssChunks = require('extract-css-chunks-webpack-plugin');
 const { InjectManifest } = require('workbox-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
+<<<<<<< HEAD
 
 const siteConfig = require('./site-config');
 const base = require('./webpack.base');
+=======
+const { StatsWriterPlugin } = require('webpack-stats-plugin');
+
+const base = require('./webpack.base');
+
+>>>>>>> 720aed38b3061ab7363f4486edcbe56d2bea9d6c
 const mode = process.env.NODE_ENV || 'development';
 const isDev = mode === 'development';
 let devEntry = [];
 
 if (isDev) {
   devEntry = [
-    'react-hot-loader/patch',
     'webpack/hot/only-dev-server',
     'webpack-hot-middleware/client?__webpack_hmr&reload=true&overlay=true'
   ];
@@ -25,6 +31,7 @@ const webpackConfig = {
   mode,
   devtool: isDev ? 'eval' : 'source-map',
   name: 'client',
+  target: 'web',
   context: __dirname,
   entry: [...devEntry, slash(path.join(__dirname, 'src'))],
   output: {
@@ -37,7 +44,18 @@ const webpackConfig = {
       {
         test: /\.(css|scss|sass)$/,
         use: [
+<<<<<<< HEAD
           ExtractCssChunks.loader,
+=======
+          {
+            loader: ExtractCssChunks.loader,
+            options: {
+              hot: true,
+              reloadAll: true,
+              modules: true
+            }
+          },
+>>>>>>> 720aed38b3061ab7363f4486edcbe56d2bea9d6c
           {
             loader: 'css-loader',
             options: {
@@ -60,13 +78,20 @@ const webpackConfig = {
       chunks: []
     }),
     new WriteFilePlugin(),
+    new StatsWriterPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
+    new webpack.NamedModulesPlugin(),
     new webpack.HotModuleReplacementPlugin(),
+    new ExtractCssChunks({
+      filename: `[name]${isDev ? '' : '.[hash]'}.css`,
+      chunkFilename: '[id].css'
+    }),
     new webpack.DefinePlugin({
       IS_SERVER: JSON.stringify(false),
       'process.env': {
         NODE_ENV: JSON.stringify(mode || 'development')
       }
+<<<<<<< HEAD
     }),
     new ExtractCssChunks({
       filename: `[name]${isDev ? '' : '.[hash]'}.css`,
@@ -74,14 +99,20 @@ const webpackConfig = {
       hot: true,
       reloadAll: true,
       cssModules: true
+=======
+>>>>>>> 720aed38b3061ab7363f4486edcbe56d2bea9d6c
     })
   ]
 };
 
 if (isDev) {
+<<<<<<< HEAD
   webpackConfig.performance = {
     hints: false
   };
+=======
+  // Do something
+>>>>>>> 720aed38b3061ab7363f4486edcbe56d2bea9d6c
 } else {
   webpackConfig.plugins.push(
     new InjectManifest({
