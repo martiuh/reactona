@@ -38,7 +38,14 @@ const webpackConfig = {
       {
         test: /\.(css|scss|sass)$/,
         use: [
-          ExtractCssChunks.loader,
+          {
+            loader: ExtractCssChunks.loader,
+            options: {
+              hot: true,
+              modules: true,
+              reloadAll: true
+            }
+          },
           {
             loader: 'css-loader',
             options: {
