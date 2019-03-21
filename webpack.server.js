@@ -1,13 +1,13 @@
-const path = require('path')
-const WriteFilePlugin = require('write-file-webpack-plugin')
-const webpack = require('webpack')
-const webpackMerge = require('webpack-merge')
-const fs = require('fs')
+const path = require('path');
+const WriteFilePlugin = require('write-file-webpack-plugin');
+const webpack = require('webpack');
+const webpackMerge = require('webpack-merge');
+const fs = require('fs');
 
-const base = require('./webpack.base')
+const base = require('./webpack.base');
 
-const externals = (
-  fs.readdirSync(path.resolve(__dirname, 'node_modules'))
+const externals = fs
+  .readdirSync(path.resolve(__dirname, 'node_modules'))
   .filter(
     x =>
       !/\.bin|react-universal-component|require-universal-module|webpack-flush-chunks/.test(
@@ -15,13 +15,12 @@ const externals = (
       )
   )
   .reduce((externals, mod) => {
-    externals[mod] = `commonjs ${mod}`
-    return externals
-  }, {})
-)
+    externals[mod] = `commonjs ${mod}`;
+    return externals;
+  }, {});
 
-externals['react-dom/server'] = 'commonjs react-dom/server'
-const mode = process.env.NODE_ENV || 'development'
+externals['react-dom/server'] = 'commonjs react-dom/server';
+const mode = process.env.NODE_ENV || 'development';
 const webpackServer = {
   mode,
   name: 'server',
@@ -64,6 +63,6 @@ const webpackServer = {
       }
     })
   ]
-}
+};
 
 module.exports = webpackMerge.smart(base, webpackServer);

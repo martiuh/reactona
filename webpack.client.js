@@ -1,38 +1,35 @@
-const path = require('path')
-const webpack = require('webpack')
-const slash = require('slash')
-const WriteFilePlugin =  require('write-file-webpack-plugin')
-const HtmlPlugin = require('html-webpack-plugin')
-const webpackMerge = require('webpack-merge')
-const ExtractCssChunks = require('extract-css-chunks-webpack-plugin')
-const { InjectManifest } = require('workbox-webpack-plugin')
-const TerserPlugin = require('terser-webpack-plugin')
+const path = require('path');
+const webpack = require('webpack');
+const slash = require('slash');
+const WriteFilePlugin = require('write-file-webpack-plugin');
+const HtmlPlugin = require('html-webpack-plugin');
+const webpackMerge = require('webpack-merge');
+const ExtractCssChunks = require('extract-css-chunks-webpack-plugin');
+const { InjectManifest } = require('workbox-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 
-const base = require('./webpack.base')
-const mode = process.env.NODE_ENV || 'development'
-const isDev = mode === 'development'
-let devEntry = []
+const siteConfig = require('./site-config');
+const base = require('./webpack.base');
+const mode = process.env.NODE_ENV || 'development';
+const isDev = mode === 'development';
+let devEntry = [];
 
 if (isDev) {
   devEntry = [
     'react-hot-loader/patch',
     'webpack/hot/only-dev-server',
     'webpack-hot-middleware/client?__webpack_hmr&reload=true&overlay=true'
-  ]
+  ];
 }
-
 const webpackConfig = {
   mode,
   devtool: isDev ? 'eval' : 'source-map',
   name: 'client',
   context: __dirname,
-  entry: [
-    ...devEntry,
-    slash(path.join(__dirname, 'src')),
-  ],
+  entry: [...devEntry, slash(path.join(__dirname, 'src'))],
   output: {
-    path: path.resolve(__dirname, '_client'),
-    publicPath: '/static/',
+    path: siteConfig.output.path,
+    publicPath: siteConfig.output.publicPath,
     filename: `[name]${isDev ? '' : '.[hash]'}.js`
   },
   module: {
@@ -40,22 +37,25 @@ const webpackConfig = {
       {
         test: /\.(css|scss|sass)$/,
         use: [
-            ExtractCssChunks.loader,
-            {
-              loader: 'css-loader',
-              options: {
-                modules: true,
-                localIdentName: '[name]__[local]--[hash:base64:5]'
-              }
-            },
-            'sass-loader'
+          ExtractCssChunks.loader,
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true,
+              localIdentName: '[name]__[local]--[hash:base64:5]'
+            }
+          },
+          'sass-loader'
         ]
       }
     ]
   },
   plugins: [
     new HtmlPlugin({
-      template: `!!raw-loader!${path.join(__dirname, 'server-renderer/template.ejs')}`,
+      template: `!!raw-loader!${path.join(
+        __dirname,
+        'server-renderer/template.ejs'
+      )}`,
       filename: 'render.ejs',
       chunks: []
     }),
@@ -74,17 +74,17 @@ const webpackConfig = {
       hot: true,
       reloadAll: true,
       cssModules: true
-    }),
+    })
   ]
-}
+};
 
-  if (isDev) {
-    webpackConfig.performance = {
-      hints: false
-    }
-  }
-  else {
-    webpackConfig.plugins.push(new InjectManifest({
+if (isDev) {
+  webpackConfig.performance = {
+    hints: false
+  };
+} else {
+  webpackConfig.plugins.push(
+    new InjectManifest({
       swDest: 'unstatic/service-worker.js', // It helps me get the worker in / instead of /static directory
       swSrc: path.join(__dirname, 'src', 'service-worker.js'),
       include: [
@@ -97,36 +97,37 @@ const webpackConfig = {
         /Offline.*/,
         /\**\/*.ico/
       ]
-    }))
+    })
+  );
 
-    webpackConfig.optimization = {
-      runtimeChunk: {
-        name: 'bootstrap'
-      },
-      splitChunks: {
-        chunks: 'initial',
-        cacheGroups: {
-          vendors: {
-            chunks: 'all',
-            test: /[\\/]node_modules[\\/]/,
-            name: 'vendor'
+  webpackConfig.optimization = {
+    runtimeChunk: {
+      name: 'bootstrap'
+    },
+    splitChunks: {
+      chunks: 'initial',
+      cacheGroups: {
+        vendors: {
+          chunks: 'all',
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendor'
+        }
+      }
+    },
+    minimizer: [
+      new TerserPlugin({
+        terserOptions: {
+          output: {
+            comments: false,
+            ascii_only: true
+          },
+          compress: {
+            comparisons: false
           }
         }
-      },
-      minimizer: [
-        new TerserPlugin({
-          terserOptions: {
-            output: {
-              comments: false,
-              ascii_only: true
-            },
-            compress: {
-              comparisons: false
-            }
-          }
-        })
-      ]
-    }
-  }
+      })
+    ]
+  };
+}
 
 module.exports = webpackMerge.smart(base, webpackConfig);

@@ -90,7 +90,7 @@ module.exports = {
     'no-console': 1,
     'jsx-a11y/no-static-element-interactions': 1,
     'no-case-declarations': 1,
-    semi: [2, 'never'],
+    semi: [1, 'never'],
     'jsx-quotes': [2, 'prefer-single'],
     'react/jsx-filename-extension': [2, { extensions: ['.jsx', '.js'] }],
     'spaced-comment': [2, 'always', { markers: ['?'] }],
