@@ -68,6 +68,10 @@ const webpackConfig = {
       chunks: []
     }),
     new WriteFilePlugin(),
+    new ExtractCssChunks({
+      filename: `[name]${isDev ? '' : '.[hash]'}.css`,
+      chunkFilename: '[id].css'
+    }),
     new StatsWriterPlugin({
       fields: [
         'assetsByChunkName',
@@ -80,22 +84,11 @@ const webpackConfig = {
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.NamedModulesPlugin(),
     new webpack.HotModuleReplacementPlugin(),
-    new ExtractCssChunks({
-      filename: `[name]${isDev ? '' : '.[hash]'}.css`,
-      chunkFilename: '[id].css'
-    }),
     new webpack.DefinePlugin({
       IS_SERVER: JSON.stringify(false),
       'process.env': {
         NODE_ENV: JSON.stringify(mode || 'development')
       }
-    }),
-    new ExtractCssChunks({
-      filename: `[name]${isDev ? '' : '.[hash]'}.css`,
-      chunkFilename: '[name].[chunkhash].css',
-      hot: true,
-      reloadAll: true,
-      cssModules: true
     })
   ]
 };
