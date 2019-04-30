@@ -8,7 +8,8 @@ import { isProduction } from './utils';
 
 let serverStore = {};
 if (!IS_SERVER) {
-  serverStore = window.REDUX_STATE;
+  // eslint-disable-next-line no-eval
+  serverStore = eval(`(${window.REDUX_STATE})`);
   delete window.REDUX_STATE;
   if (isProduction) {
     if ('serviceWorker' in navigator) {
