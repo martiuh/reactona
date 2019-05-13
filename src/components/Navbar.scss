@@ -11,5 +11,10 @@
     color: white;
     padding: 8px;
     font-size: 22px;
+
+    &.isActive {
+      color: gray;
+    }
   }
+
 }

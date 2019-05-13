@@ -2,6 +2,7 @@ import React from 'react';
 import Helmet from 'react-helmet';
 import universal from 'react-universal-component';
 import { connect } from 'react-redux';
+import Content from '../components/Content/Content';
 
 import { homeTitle } from '../css/Home';
 
@@ -16,8 +17,10 @@ function Home({ pictures }) {
   return (
     <main>
       <Helmet title="Welcome" />
-      <h1 className={homeTitle}>Home.jsx!!</h1>
-      <h3>{`${picLen} ${picString}`}</h3>
+      <Content>
+        <h1 className={homeTitle}>Home.jsx!!</h1>
+        <h3>{`${picLen} ${picString}`}</h3>
+      </Content>
     </main>
   );
 }
