@@ -11,6 +11,7 @@ const { StatsWriterPlugin } = require('webpack-stats-plugin');
 
 const siteConfig = require('./site-config');
 const base = require('./webpack.base');
+
 const mode = process.env.NODE_ENV || 'development';
 const isDev = mode === 'development';
 let devEntry = [];
@@ -18,7 +19,8 @@ let devEntry = [];
 if (isDev) {
   devEntry = [
     'webpack/hot/only-dev-server',
-    'webpack-hot-middleware/client?__webpack_hmr&reload=true&overlay=true'
+    'webpack-hot-middleware/client?__webpack_hmr&reload=true&overlay=true',
+    'react-hot-loader/patch'
   ];
 }
 const webpackConfig = {
@@ -72,15 +74,6 @@ const webpackConfig = {
       filename: `[name]${isDev ? '' : '.[hash]'}.css`,
       chunkFilename: '[id].css'
     }),
-    new StatsWriterPlugin({
-      fields: [
-        'assetsByChunkName',
-        'namedChunkGroups',
-        'chunks',
-        'modules',
-        'publicPath'
-      ]
-    }),
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.NamedModulesPlugin(),
     new webpack.HotModuleReplacementPlugin(),
@@ -89,6 +82,15 @@ const webpackConfig = {
       'process.env': {
         NODE_ENV: JSON.stringify(mode || 'development')
       }
+    }),
+    new StatsWriterPlugin({
+      fields: [
+        'assetsByChunkName',
+        'namedChunkGroups',
+        'chunks',
+        'modules',
+        'publicPath'
+      ]
     })
   ]
 };
