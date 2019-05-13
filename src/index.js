@@ -22,15 +22,14 @@ if (!IS_SERVER) {
 
 const { store } = clientStore(serverStore);
 
-const startApp = Application =>
-  hydrate(
+const startApp = Application => hydrate(
     <AppContainer>
       <Provider store={store}>
         <Application />
       </Provider>
     </AppContainer>,
     document.getElementById('app')
-  );
+);
 
 if (module.hot && !isProduction) {
   module.hot.accept('./pages/App', () => {
