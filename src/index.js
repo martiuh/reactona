@@ -33,6 +33,7 @@ const startApp = Application => hydrate(
 
 if (module.hot && !isProduction) {
   module.hot.accept('./pages/App', () => {
+    // eslint-disable-next-line global-require
     const NewApp = require('./pages/App').default;
     startApp(NewApp);
   });

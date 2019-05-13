@@ -11,7 +11,7 @@ const mainRoutes = {
   PRODUCTS: {
     fileName: 'Products',
     route: {
-      path: '/products'
+      path: '/productos'
     }
   },
   ABOUT: {
@@ -27,8 +27,11 @@ const routesValues = Object.values(mainRoutes);
 export const pageReducer = {};
 const routesMap = {};
 routesKeys.forEach((route, index) => {
-  routesMap[route] = routesValues[index].route;
-  pageReducer[route] = routesValues[index].fileName;
+  const currentRoute = routesValues[index];
+  if (currentRoute.route) {
+    routesMap[route] = currentRoute.route;
+  }
+  pageReducer[route] = currentRoute.fileName;
 });
 
 export default routesMap;

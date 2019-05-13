@@ -74,7 +74,7 @@ function SEO({
 }
 
 SEO.defaultProps = {
-  description: metadata.description,
+  description: metadata.description || 'Add site description',
   lang: 'es-MX',
   meta: [],
   keywords: [],

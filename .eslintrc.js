@@ -152,6 +152,7 @@ module.exports = {
         ]
       }
     ],
+    "jsx-quotes": 0,
     "linebreak-style": 0
   }
 };
