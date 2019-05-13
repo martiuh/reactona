@@ -35,7 +35,7 @@ const webpackServer = {
   module: {
     rules: [
       {
-        test: /\.(css|scss|sass)$/,
+        test: /\.(c|sc|sa)ss$/,
         exclude: /node_modules/,
         use: [
           {

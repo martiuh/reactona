@@ -8,7 +8,7 @@ export default function Navbar({ children }) {
     <React.Fragment>
       <nav className={navbar}>
         <Link to='/' className={navbarItem}>
-          Hehe
+          Inicio
         </Link>
         <Link to='/products' className={navbarItem}>
           Products

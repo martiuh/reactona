@@ -36,6 +36,7 @@ export default function clientStore(serverState = {}, options = {}) {
   );
 
   const initialState = {
+    ...serverState
   };
 
   const store = createStore(rootReducer, initialState, enhancers);

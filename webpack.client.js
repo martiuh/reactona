@@ -36,7 +36,7 @@ const webpackConfig = {
   module: {
     rules: [
       {
-        test: /\.(css|scss|sass)$/,
+        test: /\.(c|sc|sa)ss$/,
         use: [
           {
             loader: ExtractCssChunks.loader,
