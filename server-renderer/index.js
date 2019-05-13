@@ -19,7 +19,9 @@ export default function webpackRender({ clientStats }) {
       chunkNames
     });
 
-    const { title, meta, link, htmlAttributes, bodyAttributes } = helmet;
+    const {
+      title, meta, link, htmlAttributes, bodyAttributes
+    } = helmet;
     const rawReduxState = JSON.stringify(store.getState());
     const reduxState = serialize(rawReduxState, { isJSON: true });
     res.render('../_client/render.ejs', {
@@ -37,9 +39,8 @@ export default function webpackRender({ clientStats }) {
   };
 }
 
-const htmlApp = store =>
-  renderToString(
+const htmlApp = store => renderToString(
     <Provider store={store}>
       <App />
     </Provider>
-  );
+);
